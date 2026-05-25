@@ -13,7 +13,10 @@ class UserProfile(BaseModel):
 
 @router.get("/users/{user_id}")
 def get_user(user_id):
-    return get_cached_user(user_id)
+    cached = get_cached_user(user_id)
+    if cached:
+        return {"source": "cache", "data": cached}
+    return {"source": "db", "data": "would hit postgres here"}
 
 @router.post("/users")
 def store_user(user: UserProfile):
