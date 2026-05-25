@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from app.cache import client
-from app.routes import router
+from app.cache.user_cache import client
+from app.routes.user_routes import router
 
 app = FastAPI()
 

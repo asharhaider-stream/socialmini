@@ -1,15 +1,8 @@
 from fastapi import APIRouter
-from app.cache import cache_user_profile, get_cached_user
-from pydantic import BaseModel
+from app.cache.user_cache import cache_user_profile, get_cached_user
+from app.schemas import UserProfile
 
 router = APIRouter()
-
-class UserProfile(BaseModel):
-    user_id: str
-    username: str
-    email: str
-    age: int
-    bio: str
 
 @router.get("/users/{user_id}")
 def get_user(user_id):
