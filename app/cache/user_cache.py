@@ -10,3 +10,6 @@ def cache_user_profile(user_id, username,email,age,bio):
 
 def get_cached_user(user_id):
     return client.hgetall(f"user:{user_id}")
+
+def delete_cached_user(user_id):
+    client.delete(f"user:{user_id}")

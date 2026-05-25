@@ -27,3 +27,8 @@ def get_user_feed(user_id):
         post = client.hgetall(f"post:{post_id}")
         posts.append(post)
     return posts    
+
+def delete_cached_post(user_id, post_id):
+    client.delete(f"post:{post_id}")
+    client.zrem(f"feed:{user_id}", post_id)
+    return {"message": "post deleted successfully"}

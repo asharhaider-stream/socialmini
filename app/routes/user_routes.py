@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.cache.user_cache import cache_user_profile, get_cached_user
+from app.cache.user_cache import cache_user_profile, delete_cached_user, get_cached_user
 from app.schemas import UserProfile
 
 router = APIRouter()
@@ -14,3 +14,11 @@ def get_user(user_id):
 @router.post("/users")
 def store_user(user: UserProfile):
     return cache_user_profile(user.user_id, user.username, user.email, user.age, user.bio)
+
+@router.put("/users/{user_id}")
+def update_user(user: UserProfile):
+    delete_cached_user(user.user_id)
+    cache_user_profile(user.user_id, user.username, user.email, user.age, user.bio)
+    
+    return {"message": "User updated successfully"}
+    
